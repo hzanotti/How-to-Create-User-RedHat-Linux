@@ -1,0 +1,42 @@
+Begining by executing the default form of useradd command followed by the user name. Once this command is executed, it will perform the following actions:
+**A new entry will be added to '/etc/passwd, /etc/shadow, /etc/group, /etc/gshadow' files
+**A new user's home directory will be created along with the bash files, which are copied from the skel directory. Also, permission and ownership of the home directory will be set by default
+# useradd hendrik (the name "in my case hendrik" of the user must be chosen by you)
+
+The '/etc/passwd' file is used to store all the information of the user accounts.
+You can verify the information of the newly created username in the '/etc/passwd' file with the following command
+# cat /etc/passwd | grep hendrik
+
+The '/etc/shadow' file is used to store all the password information of the user. Only root account/equivalent privileges accounts can handle this file.
+By default, the root account holds the permission and ownership of this file. Use the following command to view the password related information of the new user named "hendrik"
+# cat /etc/shadow | grep hendrik
+
+The /etc/group file is used to store a list of groups and the members belong to each group.
+Basically, in Linux/Unix, multiple users can be placed into single or multiple groups. To see the information in the '/etc/group' file you can use the following command
+# cat /etc/group | grep hendrik
+
+How to check the user's default configuration
+# cat /etc/default/useradd
+
+Before setting up the User Expiry Date option
+# chage -l hendrik
+
+How to create a user account with an expiry date
+# useradd -e 2020-03-22 hendrik
+
+After setting the User Expiry Date option
+# chage -l hendrik
+
+How to create a password expiry date (in days) for a User account (The '-f' option will define the number of days that the password expires)
+
+# useradd -f 2 hendrik
+# cat /etc/shadow | grep hendrik
+
+You can use the following command to check the UID and GID of the user
+
+# id hendrik
+
+How to create a User with a particular User ID (UID)
+**The '-u' option can customize the UID while creating the user account. In general, the UID will start from 1000 onwards to create a normal user.
+But with the '-u' option we can define the UID. For eg: In our case, I assigned the UID d95561 to the user "hendrik". The output can be verified in the /etc/passwd file
+# useradd -u d95561 hendrik
